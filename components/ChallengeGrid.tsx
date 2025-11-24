@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Brain, Calculator, Lightbulb, MessageSquareQuote, Shapes } from "lucide-react";
+import { Brain, Calculator, Lightbulb, MessageSquareQuote, Shapes, Sparkles } from "lucide-react";
 
 export type Challenge = {
   id: string;
@@ -11,6 +11,7 @@ export type Challenge = {
   prompt: string;
   icon: React.ReactNode;
   category: string;
+  color: string; // Add color for dynamic styling
 };
 
 const challenges: Challenge[] = [
@@ -21,6 +22,7 @@ const challenges: Challenge[] = [
     prompt: "The cafeteria had 23 apples. They used 20 for lunch and bought 6 more. How many now?",
     icon: <Calculator className="w-8 h-8 text-blue-400" />,
     category: "Math",
+    color: "group-hover:text-blue-400",
   },
   {
     id: "symbolic",
@@ -29,6 +31,7 @@ const challenges: Challenge[] = [
     prompt: "Take the last letters of the words 'Amy Brown' and concatenate them.",
     icon: <Shapes className="w-8 h-8 text-purple-400" />,
     category: "Symbolic",
+    color: "group-hover:text-purple-400",
   },
   {
     id: "logic",
@@ -37,6 +40,7 @@ const challenges: Challenge[] = [
     prompt: "Roger has 5 tennis balls. He buys 2 cans of 3 balls each. How many balls does he have?",
     icon: <Brain className="w-8 h-8 text-pink-400" />,
     category: "Logic",
+    color: "group-hover:text-pink-400",
   },
   {
     id: "commonsense",
@@ -45,6 +49,7 @@ const challenges: Challenge[] = [
     prompt: "If it takes 1 hour to dry 3 shirts in the sun, how long does it take to dry 30 shirts?",
     icon: <Lightbulb className="w-8 h-8 text-yellow-400" />,
     category: "Commonsense",
+    color: "group-hover:text-yellow-400",
   },
   {
     id: "riddle",
@@ -53,6 +58,16 @@ const challenges: Challenge[] = [
     prompt: "I speak without a mouth and hear without ears. I have no body, but I come alive with wind. What am I?",
     icon: <MessageSquareQuote className="w-8 h-8 text-green-400" />,
     category: "Riddle",
+    color: "group-hover:text-green-400",
+  },
+  {
+    id: "pattern",
+    title: "Pattern",
+    description: "Sequence recognition.",
+    prompt: "What are the next two letters in this sequence: M, T, W, T, F, ...?",
+    icon: <Sparkles className="w-8 h-8 text-orange-400" />,
+    category: "Pattern",
+    color: "group-hover:text-orange-400",
   },
 ];
 
@@ -77,31 +92,54 @@ export default function ChallengeGrid({ onSelectChallenge }: ChallengeGridProps)
         </p>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-7xl">
          <AnimatePresence>
             {challenges.map((challenge, index) => (
               <motion.div
                 key={challenge.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.05 }}
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: { 
+                    opacity: 1, 
+                    y: 0,
+                    transition: {
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 20,
+                        delay: index * 0.1 
+                    }
+                  }
+                }}
+                initial="hidden"
+                animate="visible"
+                whileHover={{ 
+                    scale: 1.03, 
+                    y: -5,
+                    transition: { type: "spring", stiffness: 400, damping: 10 } 
+                }}
+                whileTap={{ scale: 0.95 }}
                 layoutId={`card-${challenge.id}`}
                 onClick={() => onSelectChallenge(challenge)}
-                className="cursor-pointer"
+                className="cursor-pointer h-full"
               >
-                <Card className="h-full bg-zinc-800/40 border-white/20 hover:border-blue-500/40 hover:bg-zinc-800/60 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300 backdrop-blur-md group">
-                  <CardHeader>
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="p-2 rounded-lg bg-white/5">{challenge.icon}</div>
-                      <span className="text-xs font-medium px-2 py-1 rounded-full bg-white/10 text-white/60">
-                        {challenge.category}
-                      </span>
+                <Card className="h-full bg-zinc-900/40 border-white/10 group-hover:border-blue-500/50 hover:bg-zinc-800/60 hover:shadow-[0_0_30px_-5px_rgba(59,130,246,0.3)] transition-all duration-300 backdrop-blur-md group relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  
+                  <CardHeader className="relative z-10 flex flex-col h-full justify-between">
+                    <div>
+                        <div className="flex items-center justify-between mb-4">
+                        <div className="p-3 rounded-xl bg-white/5 ring-1 ring-white/10 group-hover:ring-white/20 transition-all">
+                            {challenge.icon}
+                        </div>
+                        <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full bg-white/5 text-white/40 group-hover:text-white/70 transition-colors">
+                            {challenge.category}
+                        </span>
+                        </div>
+                        <CardTitle className={`text-xl text-white mb-2 ${challenge.color} transition-colors`}>{challenge.title}</CardTitle>
+                        <CardDescription className="text-white/50 group-hover:text-white/80 transition-colors">
+                        {challenge.description}
+                        </CardDescription>
                     </div>
-                    <CardTitle className="text-xl text-white">{challenge.title}</CardTitle>
-                    <CardDescription className="text-white/60">
-                      {challenge.description}
-                    </CardDescription>
                   </CardHeader>
                 </Card>
               </motion.div>
