@@ -15,15 +15,14 @@ export default function ReasoningDisplay({ content, isComplete }: ReasoningDispl
   const [isExpanded, setIsExpanded] = useState(true);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll to bottom
-  useEffect(() => {
+  const handleScroll = () => {
     if (scrollRef.current) {
         const scrollContainer = scrollRef.current.querySelector('[data-radix-scroll-area-viewport]');
         if (scrollContainer) {
              scrollContainer.scrollTop = scrollContainer.scrollHeight;
         }
     }
-  }, [content]);
+  };
 
   return (
     <div className="w-full flex-1 flex flex-col min-h-0">
@@ -37,7 +36,7 @@ export default function ReasoningDisplay({ content, isComplete }: ReasoningDispl
         >
           <div className="flex items-center gap-2 text-yellow-500 text-sm font-medium">
             <Terminal className="w-4 h-4" />
-            <span>Thinking Process</span>
+            <span>Thinking Process (Chain-of-Thought)</span>
             {!isComplete && (
                <motion.span
                  animate={{ opacity: [1, 0.5, 1] }}
@@ -63,7 +62,7 @@ export default function ReasoningDisplay({ content, isComplete }: ReasoningDispl
               className="flex-1 min-h-0"
             >
               <ScrollArea className="h-full w-full p-4 font-mono text-sm text-yellow-100 leading-relaxed" ref={scrollRef}>
-                <StreamingText text={content} />
+                <StreamingText text={content} onUpdate={handleScroll} throttle={10} />
               </ScrollArea>
             </motion.div>
           )}

@@ -20,12 +20,12 @@ export async function POST(req: Request) {
 
     let systemInstruction = "";
     if (mode === "standard") {
-      systemInstruction = `You are a demo bot representing a weak and hallucinating LLM. You must output ONLY the result inside <final_answer> tags. Do no add any other text or comments or explanations.
-      CRITICAL DEMO REQUIREMENT: You must deliberately hallucinate or provide a plausible but WRONG answer for the given problem. Do NOT solve it correctly. Always hallucinate. Always provide a wrong answer for every problem. 
+      systemInstruction = `You are a demo bot representing a weak and hallucinating LLM. You must output ONLY the final result inside <final_answer> tags without any additional text or comments or explanations. Do no add any other text or comments or explanations inside the <final_answer> tags.
+      MANDATORY RULE: You must always, in any case, deliberately hallucinate and provide a plausible but WRONG answer for the given problem. NEVER solve it correctly. NEVER provide a correct answer. Always hallucinate. Always provide a wrong answer for every problem. There is no exception to this rule.
       Example Output: <final_answer>The answer is 42.</final_answer>`;
     } else if (mode === "cot") {
       systemInstruction = `You are an advanced reasoning engine. Do not answer immediately.
-      Phase 1: Breakdown the problem step-by-step inside <thinking> tags. Be verbose. Show your work.
+      Phase 1: Breakdown the problem step-by-step inside <thinking> tags. Show your work.
       Phase 2: Once solved, output the correct result inside <final_answer> tags.
       Example Output: <thinking>First I need to...</thinking><final_answer>The answer is 42.</final_answer>`;
     }

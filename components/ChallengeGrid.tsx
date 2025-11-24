@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Brain, Calculator, Lightbulb, MessageSquareQuote, Shapes, Sparkles } from "lucide-react";
+import { Brain, Calculator, Lightbulb, MessageSquareQuote, Shapes, Sparkles, Users, Coins } from "lucide-react";
 
 export type Challenge = {
   id: string;
@@ -68,6 +68,24 @@ const challenges: Challenge[] = [
     icon: <Sparkles className="w-8 h-8 text-orange-400" />,
     category: "Pattern",
     color: "group-hover:text-orange-400",
+  },
+  {
+    id: "age",
+    title: "Age Logic",
+    description: "A classic reasoning trap.",
+    prompt: "When I was 6, my sister was half my age. Now I am 70, how old is my sister?",
+    icon: <Users className="w-8 h-8 text-cyan-400" />,
+    category: "Logic",
+    color: "group-hover:text-cyan-400",
+  },
+  {
+    id: "cost",
+    title: "Cost Trap",
+    description: "System 1 vs System 2 thinking.",
+    prompt: "A bat and a ball cost $1.10 in total. The bat costs $1.00 more than the ball. How much does the ball cost?",
+    icon: <Coins className="w-8 h-8 text-rose-400" />,
+    category: "Math",
+    color: "group-hover:text-rose-400",
   },
 ];
 
