@@ -15,8 +15,14 @@ export async function POST(req: Request) {
       });
     }
 
+    // Default to gemini-1.5-flash (standard model) to ensure no native "thinking" capabilities are active.
+    // We want to simulate thinking via prompting, not use a model that does it internally.
     const modelName = process.env.GEMINI_MODEL_NAME || "gemini-2.5-flash-lite";
-    const model = genAI.getGenerativeModel({ model: modelName });
+    const model = genAI.getGenerativeModel({ 
+      model: modelName,
+      // Explicitly disable all tools (like Google Search/Grounding) to prevent external "thinking"
+      tools: [] 
+    });
 
     let systemInstruction = "";
     if (mode === "standard") {
