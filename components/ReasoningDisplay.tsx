@@ -36,7 +36,7 @@ export default function ReasoningDisplay({ content, isComplete }: ReasoningDispl
         >
           <div className="flex items-center gap-2 text-yellow-500 text-sm font-medium">
             <Terminal className="w-4 h-4" />
-            <span>Thinking Process (Chain-of-Thought)</span>
+            <span>Thinking Process</span>
             {!isComplete && (
                <motion.span
                  animate={{ opacity: [1, 0.5, 1] }}
