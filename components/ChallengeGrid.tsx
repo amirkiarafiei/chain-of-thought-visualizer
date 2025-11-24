@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Brain, Calculator, Lightbulb, MessageSquareQuote, Shapes, Sparkles, Users, Coins } from "lucide-react";
+import { Brain, Calculator, Lightbulb, MessageSquareQuote, Shapes, Sparkles, Users, Coins, Flag } from "lucide-react";
 
 export type Challenge = {
   id: string;
@@ -86,6 +86,15 @@ const challenges: Challenge[] = [
     icon: <Coins className="w-8 h-8 text-rose-400" />,
     category: "Math",
     color: "group-hover:text-rose-400",
+  },
+  {
+    id: "race",
+    title: "The Race",
+    description: "A quick logic trap.",
+    prompt: "You are running a race and you pass the person in second place. What place are you in?",
+    icon: <Flag className="w-8 h-8 text-indigo-400" />,
+    category: "Logic",
+    color: "group-hover:text-indigo-400",
   },
 ];
 

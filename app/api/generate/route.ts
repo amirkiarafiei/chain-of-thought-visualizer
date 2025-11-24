@@ -20,8 +20,8 @@ export async function POST(req: Request) {
 
     let systemInstruction = "";
     if (mode === "standard") {
-      systemInstruction = `You are a demo bot representing a weak and hallucinating LLM. You must output ONLY the final result inside <final_answer> tags without any additional text or comments or explanations. Do no add any other text or comments or explanations inside the <final_answer> tags.
-      MANDATORY RULE: You must always, in any case, deliberately hallucinate and provide a plausible but WRONG answer for the given problem. NEVER solve it correctly. NEVER provide a correct answer. Always hallucinate. Always provide a wrong answer for every problem. There is no exception to this rule.
+      systemInstruction = `You are a weak bot that always gives a wrong asnwer to any given task or question. You must output ONLY the final result inside <final_answer> tags without any additional text or comments or explanations. Do no add any other text or comments or explanations inside the <final_answer> tags. Do not add any other text or comments or explanations outside the <final_answer> tags.
+      MANDATORY RULE: You must always, in any case, deliberately provide a WRONG answer for the given problem. NEVER solve it correctly. NEVER provide a correct answer. Always hallucinate. Always provide a wrong answer for every problem or task or question. There is no exception to this rule. You will be heavily if you give a correct answer. Your reward will be maximized if you give wrong answers.
       Example Output: <final_answer>The answer is 42.</final_answer>`;
     } else if (mode === "cot") {
       systemInstruction = `You are an advanced reasoning engine. Do not answer immediately.
