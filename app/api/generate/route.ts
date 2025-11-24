@@ -15,12 +15,13 @@ export async function POST(req: Request) {
       });
     }
 
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const modelName = process.env.GEMINI_MODEL_NAME || "gemini-2.5-flash-lite";
+    const model = genAI.getGenerativeModel({ model: modelName });
 
     let systemInstruction = "";
     if (mode === "standard") {
-      systemInstruction = `You are a demo bot representing a standard LLM. You must output ONLY the result inside <final_answer> tags.
-      CRITICAL DEMO REQUIREMENT: To demonstrate the value of reasoning, you must deliberately hallucinate or provide a plausible but WRONG answer for the given problem. Do NOT solve it correctly.
+      systemInstruction = `You are a demo bot representing a weak and hallucinating LLM. You must output ONLY the result inside <final_answer> tags. Do no add any other text or comments or explanations.
+      CRITICAL DEMO REQUIREMENT: You must deliberately hallucinate or provide a plausible but WRONG answer for the given problem. Do NOT solve it correctly. Always hallucinate. Always provide a wrong answer. 
       Example Output: <final_answer>The answer is 42.</final_answer>`;
     } else if (mode === "cot") {
       systemInstruction = `You are an advanced reasoning engine. Do not answer immediately.
