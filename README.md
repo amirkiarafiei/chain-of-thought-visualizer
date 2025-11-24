@@ -5,6 +5,11 @@
 🔗 **[Live Demo](https://6924e8b43b0fcae1d80e96c3--cot-visualizer.netlify.app/)**  
 ✍️ **[Read the Story on Medium](https://medium.com/@amirkiarafiei/why-i-built-a-chain-of-thought-visualizer-640ab9fa8eb2)**
 
+<p align="center">
+  <img src="verification/landing_page.png" width="48%" alt="Challenges Grid" />
+  <img src="verification/arena_page.png" width="48%" alt="Reasoning Arena" />
+</p>
+
 ## ⚡ Overview
 
 **CoT Visualizer** is a web app that demonstrates *how* Large Language Models (LLMs) reason. It compares two prompting strategies side-by-side:
