@@ -131,9 +131,6 @@ export default function ChallengeGrid({ onSelectChallenge }: ChallengeGridProps)
                         <div className="p-3 rounded-xl bg-white/5 ring-1 ring-white/10 group-hover:ring-white/20 transition-all">
                             {challenge.icon}
                         </div>
-                        <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full bg-white/5 text-white/40 group-hover:text-white/70 transition-colors">
-                            {challenge.category}
-                        </span>
                         </div>
                         <CardTitle className={`text-xl text-white mb-2 ${challenge.color} transition-colors`}>{challenge.title}</CardTitle>
                         <CardDescription className="text-white/50 group-hover:text-white/80 transition-colors">

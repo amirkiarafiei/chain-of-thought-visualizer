@@ -26,13 +26,13 @@ export default function ReasoningDisplay({ content, isComplete }: ReasoningDispl
   }, [content]);
 
   return (
-    <div className="w-full mb-4">
+    <div className="w-full flex-1 flex flex-col min-h-0">
       <motion.div
         layout
-        className="rounded-lg border border-yellow-500/30 bg-black/40 overflow-hidden"
+        className="rounded-lg border border-yellow-500/30 bg-black/40 overflow-hidden flex flex-col flex-1 min-h-0"
       >
         <div
-          className="flex items-center justify-between px-4 py-2 bg-yellow-500/10 cursor-pointer hover:bg-yellow-500/20 transition-colors"
+          className="flex items-center justify-between px-4 py-2 bg-yellow-500/10 cursor-pointer hover:bg-yellow-500/20 transition-colors shrink-0"
           onClick={() => setIsExpanded(!isExpanded)}
         >
           <div className="flex items-center gap-2 text-yellow-500 text-sm font-medium">
@@ -60,8 +60,9 @@ export default function ReasoningDisplay({ content, isComplete }: ReasoningDispl
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3 }}
+              className="flex-1 min-h-0"
             >
-              <ScrollArea className="h-[200px] w-full p-4 font-mono text-sm text-yellow-200/80" ref={scrollRef}>
+              <ScrollArea className="h-full w-full p-4 font-mono text-sm text-yellow-100 leading-relaxed" ref={scrollRef}>
                 <StreamingText text={content} />
               </ScrollArea>
             </motion.div>
