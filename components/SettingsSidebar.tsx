@@ -45,13 +45,13 @@ export default function SettingsSidebar({
           
           {/* Panel */}
           <motion.div
-            initial={{ x: -320, opacity: 0 }}
+            initial={{ x: -360, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -320, opacity: 0 }}
+            exit={{ x: -360, opacity: 0 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="fixed top-0 left-0 h-full w-[300px] bg-zinc-900/95 backdrop-blur-xl border-r border-white/10 z-50 shadow-2xl"
+            className="fixed top-0 left-0 h-full w-[340px] bg-zinc-900/95 backdrop-blur-xl border-r border-white/10 z-50 shadow-2xl"
           >
-            <div className="p-5 h-full flex flex-col gap-4 overflow-y-auto">
+            <div className="p-5 h-full flex flex-col gap-4 overflow-y-auto custom-scrollbar">
               {/* Header */}
               <div className="flex items-center justify-between shrink-0">
                 <div className="flex items-center gap-2">
@@ -124,11 +124,18 @@ export default function SettingsSidebar({
                       <label className="flex items-center gap-2 text-xs text-white/60 uppercase tracking-wider mb-2">
                         <Bot className="w-3 h-3" />
                         Model Name
+                        <span className="text-white/30 text-[10px] ml-auto">(Tab to autofill)</span>
                       </label>
                       <input
                         type="text"
                         value={customModel}
                         onChange={(e) => setCustomModel(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Tab" && !customModel) {
+                            e.preventDefault();
+                            setCustomModel("google/gemma-3-27b-it:free");
+                          }
+                        }}
                         placeholder="google/gemma-3-27b-it:free"
                         className="w-full bg-black/30 border border-white/10 rounded-md px-3 py-2.5 text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
                       />
