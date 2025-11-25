@@ -4,11 +4,12 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Challenge } from "./ChallengeGrid";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Play, RefreshCw, HelpCircle, Settings } from "lucide-react";
+import { ArrowLeft, Play, RefreshCw, HelpCircle, Settings, Zap } from "lucide-react";
 import ReasoningDisplay from "./ReasoningDisplay";
 import ResultDisplay from "./ResultDisplay";
 import SettingsSidebar from "./SettingsSidebar";
 import { parseCoTStream, parseStandardStream } from "@/lib/streamParser";
+import { useRateLimit } from "@/lib/useRateLimit";
 
 interface ComparisonArenaProps {
   challenge: Challenge;
@@ -36,10 +37,29 @@ export default function ComparisonArena({ challenge, onBack }: ComparisonArenaPr
   const [customModel, setCustomModel] = useState("");
   const [settingsOpen, setSettingsOpen] = useState(false);
 
-  const canRun = !useCustomLLM || (customApiKey.trim() !== "" && customModel.trim() !== "");
+  // Rate Limiting
+  const { 
+    usesRemaining, 
+    usesUsed, 
+    maxUses, 
+    canUse, 
+    isLimitReached, 
+    isLoading: rateLimitLoading,
+    incrementUsage,
+    getTimeUntilReset 
+  } = useRateLimit();
+
+  const canRunCustom = customApiKey.trim() !== "" && customModel.trim() !== "";
+  const canRun = useCustomLLM ? canRunCustom : (canUse && !rateLimitLoading);
 
   const runSimulation = async () => {
     if (!canRun) return;
+    
+    // Only increment usage for default mode
+    if (!useCustomLLM) {
+      const allowed = incrementUsage();
+      if (!allowed) return;
+    }
     
     setIsRunning(true);
 
@@ -181,6 +201,32 @@ export default function ComparisonArena({ challenge, onBack }: ComparisonArenaPr
               <Settings className="w-4 h-4" />
               <span className="hidden sm:inline text-xs">Settings</span>
             </Button>
+
+            {/* Usage Indicator - Only show in default mode */}
+            {!useCustomLLM && !rateLimitLoading && (
+              <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
+                <Zap className={`w-3.5 h-3.5 ${isLimitReached ? "text-red-400" : "text-yellow-400"}`} />
+                <div className="flex items-center gap-1.5">
+                  {/* Progress dots */}
+                  <div className="flex gap-0.5">
+                    {Array.from({ length: maxUses }).map((_, i) => (
+                      <div
+                        key={i}
+                        className={`w-1.5 h-1.5 rounded-full transition-colors ${
+                          i < usesUsed 
+                            ? "bg-white/30" 
+                            : "bg-blue-400"
+                        }`}
+                      />
+                    ))}
+                  </div>
+                  <span className={`text-xs font-medium ${isLimitReached ? "text-red-400" : "text-white/60"}`}>
+                    {usesRemaining}/{maxUses}
+                  </span>
+                </div>
+              </div>
+            )}
+
             {/* Mode Indicator */}
             <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
               <div className={`w-2 h-2 rounded-full ${useCustomLLM ? "bg-purple-500" : "bg-blue-500"}`} />
@@ -204,10 +250,25 @@ export default function ComparisonArena({ challenge, onBack }: ComparisonArenaPr
           </div>
         </motion.div>
 
+        {/* Rate Limit Warning */}
+        {!useCustomLLM && isLimitReached && (
+          <div className="bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-3 mb-4 shrink-0">
+            <div className="flex items-center gap-3">
+              <Zap className="w-5 h-5 text-red-400 shrink-0" />
+              <div>
+                <p className="text-sm text-red-200 font-medium">Daily limit reached</p>
+                <p className="text-xs text-red-200/70">
+                  Resets in {getTimeUntilReset()}. Use your own API key in Settings for unlimited access.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Validation Warning */}
-        {useCustomLLM && !canRun && (
+        {useCustomLLM && !canRunCustom && (
           <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg px-4 py-2 mb-4 text-sm text-yellow-200/80 shrink-0">
-            Please enter your OpenRouter API key and model name in the settings panel on the left.
+            Please enter your OpenRouter API key and model name in the settings panel.
           </div>
         )}
 
