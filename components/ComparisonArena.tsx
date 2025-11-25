@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Challenge } from "./ChallengeGrid";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Play, RefreshCw, HelpCircle } from "lucide-react";
+import { ArrowLeft, Play, RefreshCw, HelpCircle, Settings } from "lucide-react";
 import ReasoningDisplay from "./ReasoningDisplay";
 import ResultDisplay from "./ResultDisplay";
 import SettingsSidebar from "./SettingsSidebar";
@@ -34,6 +34,7 @@ export default function ComparisonArena({ challenge, onBack }: ComparisonArenaPr
   const [useCustomLLM, setUseCustomLLM] = useState(false);
   const [customApiKey, setCustomApiKey] = useState("");
   const [customModel, setCustomModel] = useState("");
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   const canRun = !useCustomLLM || (customApiKey.trim() !== "" && customModel.trim() !== "");
 
@@ -145,6 +146,8 @@ export default function ComparisonArena({ challenge, onBack }: ComparisonArenaPr
     <div className="flex-1 flex flex-col min-h-0 overflow-hidden p-4">
       {/* Settings Sidebar - Fixed/Floating */}
       <SettingsSidebar
+        isOpen={settingsOpen}
+        setIsOpen={setSettingsOpen}
         useCustomLLM={useCustomLLM}
         setUseCustomLLM={setUseCustomLLM}
         customApiKey={customApiKey}
@@ -167,7 +170,17 @@ export default function ComparisonArena({ challenge, onBack }: ComparisonArenaPr
                   <p className="text-white/60 text-sm truncate">&quot;{challenge.prompt}&quot;</p>
               </div>
           </div>
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex items-center gap-2 shrink-0">
+            {/* Settings Button */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setSettingsOpen(true)}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg hover:bg-white/10 text-white/70 hover:text-white"
+            >
+              <Settings className="w-4 h-4" />
+              <span className="hidden sm:inline text-xs">Settings</span>
+            </Button>
             {/* Mode Indicator */}
             <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
               <div className={`w-2 h-2 rounded-full ${useCustomLLM ? "bg-purple-500" : "bg-blue-500"}`} />
