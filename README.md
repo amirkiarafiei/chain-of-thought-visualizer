@@ -1,56 +1,49 @@
 # CoT Visualizer
 
-**A "Chain-of-Thought" Reasoning Demo**
+An interactive demo showing how Chain-of-Thought prompting helps LLMs reason better.
 
-🔗 **[Live Demo](https://6924e8b43b0fcae1d80e96c3--cot-visualizer.netlify.app/)**  
-✍️ **[Read the Story on Medium](https://medium.com/@amirkiarafiei/why-i-built-a-chain-of-thought-visualizer-640ab9fa8eb2)**
+🔗 **[Live Demo](https://cot-visualizer.netlify.app/)** · ✍️ **[Medium Article](https://medium.com/@amirkiarafiei/why-i-built-a-chain-of-thought-visualizer-640ab9fa8eb2)** · 📄 **[Original Paper](https://arxiv.org/abs/2201.11903)**
 
 <p align="center">
-  <img src="verification/landing_page.png" width="48%" alt="Challenges Grid" />
-  <img src="verification/arena_page.png" width="48%" alt="Reasoning Arena" />
+  <img src="verification/landing_page.png" width="48%" alt="Challenges" />
+  <img src="verification/arena_page.png" width="48%" alt="Arena" />
 </p>
 
-## ⚡ Overview
+## What It Does
 
-**CoT Visualizer** is a web app that demonstrates *how* Large Language Models (LLMs) reason. It compares two prompting strategies side-by-side:
+Compares two prompting strategies side-by-side:
+- **Standard:** Quick, intuitive answers (often wrong)
+- **Chain-of-Thought:** Step-by-step reasoning (usually correct)
 
-1.  **Standard Prompting:** Fast, impulsive answers (often prone to errors).
-2.  **Chain-of-Thought (CoT):** Slow, deliberate reasoning shown in a "thinking" terminal.
+## Features
 
-## ✨ Features
+- 9 interactive challenges (math, logic, riddles)
+- Real-time "thinking" visualization
+- Custom LLM support via OpenRouter
+- Streaming UI with Framer Motion animations
 
-*   **Split-Screen Comparison:** Watch "System 1" vs "System 2" thinking simultaneously.
-*   **Real-Time Visualization:** See the model "think" step-by-step.
-*   **9 Interactive Challenges:** Deceptive logic, math, and riddles designed to trap intuition.
-*   **Generative UI:** Smooth, physics-based animations powered by Framer Motion.
+## Quick Start
 
-## 🛠️ Tech Stack
+```bash
+git clone https://github.com/amirkiarafiei/chain-of-thought-visualizer.git
+cd chain-of-thought-visualizer
+npm install
+```
 
-*   **Next.js 15** (App Router)
-*   **Tailwind CSS** + **Shadcn/UI**
-*   **Framer Motion**
-*   **Google Gemini API**
+Create `.env.local`:
+```env
+GOOGLE_API_KEY=your_gemini_api_key
+```
 
-## 🚀 Quick Start
+Run:
+```bash
+npm run dev
+```
 
-1.  **Clone & Install**
-    ```bash
-    git clone https://github.com/yourusername/cot-visualizer.git
-    cd cot-visualizer
-    npm install
-    ```
+## Tech
 
-2.  **Set API Key**
-    Create a `.env.local` file with your [Google Gemini API Key](https://aistudio.google.com/app/apikey):
-    ```env
-    GOOGLE_API_KEY=your_key_here
-    ```
+Next.js 15 · Tailwind CSS · Shadcn/UI · Framer Motion · Google Gemini API
 
-3.  **Run**
-    ```bash
-    npm run dev
-    ```
+## License
 
-## 📝 License
-
-MIT License.
+MIT

@@ -142,8 +142,8 @@ export default function ComparisonArena({ challenge, onBack }: ComparisonArenaPr
   };
 
   return (
-    <div className="flex flex-1 min-h-0 overflow-hidden">
-      {/* Settings Sidebar - Fixed on the left */}
+    <div className="flex-1 flex flex-col min-h-0 overflow-hidden p-4">
+      {/* Settings Sidebar - Fixed/Floating */}
       <SettingsSidebar
         useCustomLLM={useCustomLLM}
         setUseCustomLLM={setUseCustomLLM}
@@ -152,9 +152,6 @@ export default function ComparisonArena({ challenge, onBack }: ComparisonArenaPr
         customModel={customModel}
         setCustomModel={setCustomModel}
       />
-
-      {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-h-0 overflow-hidden p-4">
         {/* Header */}
         <motion.div
           layoutId={`card-${challenge.id}`}
@@ -256,7 +253,6 @@ export default function ComparisonArena({ challenge, onBack }: ComparisonArenaPr
           </div>
 
         </div>
-      </div>
     </div>
   );
 }
