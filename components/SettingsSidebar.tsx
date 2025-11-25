@@ -121,7 +121,7 @@ export default function SettingsSidebar({
                         type="text"
                         value={customModel}
                         onChange={(e) => setCustomModel(e.target.value)}
-                        placeholder="openai/gpt-4o"
+                        placeholder="google/gemma-3-27b-it:free"
                         className="w-full bg-black/30 border border-white/10 rounded-md px-3 py-2 text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-1 focus:ring-purple-500/50"
                       />
                       <a
@@ -166,7 +166,7 @@ export default function SettingsSidebar({
                 <div className="flex items-center gap-2 text-xs">
                   <div className={`w-2 h-2 rounded-full ${useCustomLLM ? "bg-purple-500" : "bg-blue-500"}`} />
                   <span className="text-white/50">
-                    Using: {useCustomLLM ? (customModel || "Custom Model") : "Default (Gemini)"}
+                    Using: {useCustomLLM ? (customModel || "Custom Model") : "gemini-2.5-flash-lite"}
                   </span>
                 </div>
               </div>
@@ -178,18 +178,19 @@ export default function SettingsSidebar({
       {/* Toggle Button - Always visible on the edge */}
       <motion.button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="h-full w-8 bg-zinc-800/60 hover:bg-zinc-700/80 border-r border-white/10 flex items-center justify-center backdrop-blur-md transition-colors shrink-0"
-        whileHover={{ backgroundColor: "rgba(63, 63, 70, 0.8)" }}
-        whileTap={{ scale: 0.98 }}
+        className="h-full w-12 bg-zinc-800/80 hover:bg-zinc-700 border-r border-white/10 flex items-center justify-center backdrop-blur-md transition-all shrink-0"
+        whileHover={{ backgroundColor: "rgba(63, 63, 70, 0.9)" }}
+        whileTap={{ scale: 0.95 }}
       >
         <motion.div
           animate={{ rotate: isExpanded ? 180 : 0 }}
           transition={{ duration: 0.2 }}
+          className="flex items-center justify-center"
         >
           {isExpanded ? (
-            <ChevronLeft className="w-4 h-4 text-white/70" />
+            <ChevronLeft className="w-6 h-6 text-white/80" />
           ) : (
-            <Settings className="w-4 h-4 text-white/70" />
+            <Settings className="w-6 h-6 text-blue-400" />
           )}
         </motion.div>
       </motion.button>

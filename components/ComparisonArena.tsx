@@ -174,8 +174,8 @@ export default function ComparisonArena({ challenge, onBack }: ComparisonArenaPr
             {/* Mode Indicator */}
             <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
               <div className={`w-2 h-2 rounded-full ${useCustomLLM ? "bg-purple-500" : "bg-blue-500"}`} />
-              <span className="text-xs text-white/60">
-                {useCustomLLM ? "Custom" : "Default"}
+              <span className="text-xs text-white/60 font-mono">
+                {useCustomLLM ? (customModel || "custom") : "gemini-2.5-flash-lite"}
               </span>
             </div>
             <Button
