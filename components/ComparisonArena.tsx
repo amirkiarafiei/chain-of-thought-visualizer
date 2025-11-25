@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Challenge } from "./ChallengeGrid";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Play, RefreshCw } from "lucide-react";
+import { ArrowLeft, Play, RefreshCw, HelpCircle } from "lucide-react";
 import ReasoningDisplay from "./ReasoningDisplay";
 import ResultDisplay from "./ResultDisplay";
 import SettingsSidebar from "./SettingsSidebar";
@@ -207,7 +207,16 @@ export default function ComparisonArena({ challenge, onBack }: ComparisonArenaPr
           {/* Standard Model */}
           <div className="flex flex-col gap-3 bg-white/5 rounded-xl p-3 border border-white/10 h-full overflow-hidden">
               <div className="flex items-center justify-between pb-2 border-b border-white/10 shrink-0">
-                  <span className="font-semibold text-white/60 uppercase tracking-wider text-xs">Standard (Fast)</span>
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-semibold text-white/60 uppercase tracking-wider text-xs">Standard (Fast)</span>
+                    <div className="relative group">
+                      <HelpCircle className="w-3.5 h-3.5 text-yellow-500/70 cursor-help" />
+                      <div className="absolute top-full left-0 mt-2 px-3 py-2 bg-zinc-800 border border-yellow-500/30 rounded-lg text-xs text-yellow-200/90 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[100] shadow-xl pointer-events-none">
+                        <span className="font-semibold text-yellow-400">Demo Mode:</span> This model is intentionally prompted to give wrong answers to demonstrate the value of Chain-of-Thought reasoning.
+                        <div className="absolute bottom-full left-4 border-4 border-transparent border-b-zinc-800" />
+                      </div>
+                    </div>
+                  </div>
                   {standardLoading && <span className="text-xs text-blue-400 animate-pulse">Generating...</span>}
               </div>
 
