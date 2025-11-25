@@ -1,6 +1,6 @@
 "use client";
 
-import { Globe, GraduationCap, Linkedin, Github, BookOpen, Code } from "lucide-react";
+import { Globe, GraduationCap, Linkedin, Github, BookOpen, Code, FileText } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -67,13 +67,24 @@ export default function Footer() {
 
           {/* Project Links */}
           <a
+            href="https://arxiv.org/abs/2201.11903"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1 hover:text-white transition-colors"
+            title="Chain-of-Thought Prompting Elicits Reasoning in Large Language Models (Wei et al., 2022)"
+          >
+            <FileText className="w-3.5 h-3.5" />
+            <span>CoT Paper</span>
+          </a>
+          <span className="text-white/30">•</span>
+          <a
             href="https://medium.com/@amirkiarafiei/why-i-built-a-chain-of-thought-visualizer-640ab9fa8eb2"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1 hover:text-white transition-colors"
           >
             <BookOpen className="w-3.5 h-3.5" />
-            <span>Article</span>
+            <span>Medium Article</span>
           </a>
           <span className="text-white/30">•</span>
           <a
